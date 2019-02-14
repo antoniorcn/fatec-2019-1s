@@ -1,0 +1,21 @@
+package edu.curso;
+
+import java.io.File;
+
+public class GravacaoEmArquivo {
+
+	public static void main(String[] args) {
+		File f = new File("C:/Curso/nome.txt");
+		System.out.printf("Abrindo arquivo %s para gravação\n", f.getName());
+		System.out.printf("Arquivo Existe: %b\n", f.exists());
+		System.out.printf("Pode ler: %b\n", f.canRead());
+		System.out.printf("Arquivo: %b\n", f.isFile());
+		System.out.printf("Diretorio: %b\n", f.isDirectory());
+
+		// FileWriter fw = new FileWriter( f );
+		
+		
+
+	}
+
+}
