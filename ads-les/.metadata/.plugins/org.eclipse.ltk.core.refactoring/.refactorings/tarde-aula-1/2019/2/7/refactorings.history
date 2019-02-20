@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;ExemploLeitura.java&apos; to &apos;tarde-aula-1/src/edu.curso&apos;&#x0D;&#x0A;- Original project: &apos;tarde-aula-1&apos;&#x0D;&#x0A;- Destination element: &apos;tarde-aula-1/src/edu.curso&apos;&#x0D;&#x0A;- Original element: &apos;edu.curso.ExemploLeitura.java&apos;" description="Copy compilation unit" destination="/src&lt;edu.curso" element1="/src&lt;edu.curso{ExemploLeitura.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1550088239431" units="1" version="1.0"/>
-</session>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/tarde-aula-1/src/edu/curso/ExemploLeituraComBufferedReader.java"/>
+<listEntry value="/tarde-aula1/src/edu/curso/ExemploLeituraComBufferedReader.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="edu.curso.ExemploLeituraComBufferedReader"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="tarde-aula-1"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="tarde-aula1"/>
 </launchConfiguration>
