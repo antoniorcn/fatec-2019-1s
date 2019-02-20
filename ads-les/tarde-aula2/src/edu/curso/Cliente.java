@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 public class Cliente {
 	private int porta = 3000;
@@ -16,10 +17,20 @@ public class Cliente {
 			InputStreamReader inr = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inr);
 			String linha = "";
-			while (!"sair".equals(linha)) { 
+			String linhaKbd = "";
+			InputStreamReader kbdInr = new InputStreamReader(System.in);
+			BufferedReader kbdBr = new BufferedReader(kbdInr);
+			OutputStream out = soc.getOutputStream();
+			while (!"sair".equals(linha) && !"sair".equals(linhaKbd)) { 
 				if (br.ready()) { 
 					linha = br.readLine();
 					System.out.println(linha);
+				}
+				
+				if (kbdBr.ready()) { 
+					linhaKbd = kbdBr.readLine();
+					out.write(linhaKbd.getBytes());
+					out.flush();
 				}
 			}
 			soc.close();
