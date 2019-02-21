@@ -17,18 +17,23 @@ public class Servidor {
 			Socket cliente = srv.accept();
 			System.out.println("Cliente foi conectado com sucecsso");
 			OutputStream out = cliente.getOutputStream();
-			out.write("Bem vindo ao servidor\n".getBytes());
+			out.write("Bem vindo ao servidor\n\r".getBytes());
 			out.flush();
 			boolean sair = false;
 			InputStream in = cliente.getInputStream();
 			InputStreamReader inr = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inr);
+			
+			InputStreamReader kbdInr = new InputStreamReader(System.in);
+			BufferedReader kbdBr = new BufferedReader(kbdInr);
 			String linha = "";
 			while(!"sair".equalsIgnoreCase(linha)) {
-				//if(in.available() > 0) { 
-				//	int i = in.read();
-				//	System.out.print((char)i);
-				//}
+				if (kbdBr.ready()) { 
+					String linhaTeclado = kbdBr.readLine();
+					out.write(linhaTeclado.getBytes());
+					out.write("\n\r".getBytes());
+					out.flush();
+				}
 				if (br.ready()) { 
 					linha = br.readLine();
 					System.out.println(linha);
