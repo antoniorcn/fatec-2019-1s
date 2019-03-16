@@ -1,0 +1,18 @@
+.vermelho {
+	color : Red;
+}
+
+.vermelho:hover {
+	color : Yellow;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+.fundo_amarelo { 
+	background-color: #EEEE50;
+}
+
+.grande { 
+	font-family: Serif;
+	font-size: 36px;			
+}
