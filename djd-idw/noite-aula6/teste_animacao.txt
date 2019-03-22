@@ -1,0 +1,16 @@
+<html>
+	<body>
+		<h1>Animação</h1>
+		<canvas id="canvas" width="640" height="480"/>		
+		<script>
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			console.log("Contexto incializado");
+
+			ctx.fillStyle = "#FF0000";
+			
+			ctx.fillRect(103, 103, 95, 95);
+			console.log("Retangulo desenhado");
+		</script>
+	</body>
+</html>

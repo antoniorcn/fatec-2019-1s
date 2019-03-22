@@ -1,0 +1,35 @@
+<html>
+	<body>
+		<h1>Cabeçalho da pagina</h1>
+		
+		<p id="p1">Paragrafo 1</p>
+		<p>Paragrafo 2</p>
+		<canvas id="canvas" width="640" height="480"/>		
+		<script>
+		/*
+			var p1 = document.getElementById("p1");
+			p1.innerHTML = "Paragrafo 1 - modificado";
+			p1.style = "font-size: 300%; color:Red;"; */
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			console.log("Contexto incializado");
+			
+			var gradient = ctx.createLinearGradient(100, 0, 200, 0);
+			gradient.addColorStop("0", "green");
+			gradient.addColorStop("0.5", "red");
+			gradient.addColorStop("1.0", "yellow");
+			
+			// ctx.strokeStyle = "#FF0000";
+			ctx.strokeStyle = gradient;
+			// Programa o desenho do retangulo
+			ctx.lineWidth = 5;
+			ctx.rect(100, 100, 100, 100);
+			console.log("Retangulo programado para desenhar");
+			// Efetivamente desenha o que foi programado
+			ctx.stroke();
+			
+			ctx.fillRect(103, 103, 95, 95);
+			console.log("Retangulo desenhado");
+		</script>
+	</body>
+</html>

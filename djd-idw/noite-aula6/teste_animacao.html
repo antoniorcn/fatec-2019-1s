@@ -1,0 +1,53 @@
+<html>
+	<body>
+		<h1>Animação</h1>
+		<canvas id="canvas" width="640" height="480"/>		
+		<script>
+			var img = new Image();
+			img.src = "./vaca_small.jpg";
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			
+			
+			var x = 50;
+			var y = 50;
+			var velX = 1;
+			var velY = 1;
+			console.log("Contexto incializado");
+			
+			function mouseEvento(e) { 
+				velX = Math.abs(e.x - x) / (e.x - x);
+				velY = Math.abs(e.y - y) / (e.y - y);
+			}
+			
+			function mouseMovendo(e) { 
+				velX = Math.abs(e.x - x) / (e.x - x);
+				velY = Math.abs(e.y - y) / (e.y - y);
+			}
+			
+			function teclado(e) { 
+				console.log(e);
+			}
+
+
+			function gameLoop() { 
+				// Pintar na tela
+				ctx.clearRect(0, 0, 640, 480);
+				//ctx.fillStyle = "#FF0000";
+				//ctx.fillRect(x, y, 95, 95);
+				ctx.drawImage(img, x, y);
+				
+				// Calcular regras
+				x = x + velX;
+				y = y + velY;
+			}
+					
+			window.addEventListener("click", mouseEvento);
+			window.addEventListener("mousemove", mouseMovendo);
+			window.addEventListener('keydown', teclado);
+			window.setInterval(gameLoop, 10);
+			
+			console.log("Retangulo desenhado");
+		</script>
+	</body>
+</html>
