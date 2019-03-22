@@ -41,6 +41,7 @@ public class Aluno implements Comparable<Aluno>{
 		} else {
 			return 0;
 		}
+		//return this.getNome().compareTo(a.getNome());
 	}
 	
 	@Override
