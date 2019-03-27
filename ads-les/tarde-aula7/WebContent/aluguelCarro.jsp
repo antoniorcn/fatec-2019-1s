@@ -10,11 +10,26 @@
 </head>
 <body>
 	<h1>Aluguel de Carros</h1>
+	<%
+		AluguelCarro ac = (AluguelCarro)
+							session.getAttribute("ALUGUEL");
+		if (ac == null) { 
+			ac = new AluguelCarro();
+		}
+		String msg = (String)session.getAttribute("MENSAGEM");
+		if (msg != null) { 
+	%>
+	<h3 style="color:red;"><%=msg%></h3>
+	<%
+			session.setAttribute("MENSAGEM", null);
+		}
+	%>
 	<form action="./aluguelCarros" method="post">
 		<table>
 			<tr>
 				<td>Id do Aluguel:</td>
-				<td><input type="text" name="id" readonly="readonly"/></td>
+				<td><input type="text" name="id" readonly="readonly" 
+							value="<%=ac.getId()%>"/></td>
 			</tr>
 			<tr>
 				<td>Modelo Carro:</td>
@@ -30,11 +45,13 @@
 			</tr>
 			<tr>
 				<td>Data do Aluguel:</td>
-				<td><input type="date" name="dataAluguel"/></td>
+				<td><input type="date" name="dataAluguel" 
+					value="<%=ac.getDataInicio()%>"/></td>
 			</tr>
 			<tr>
 				<td>Dias de Aluguel:</td>
-				<td><input type="number" name="diasAluguel"/></td>
+				<td><input type="number" name="diasAluguel"
+							value="<%=ac.getDias()%>"/></td>
 			</tr>			
 			<tr>
 				<td><input type="submit" value="Adicionar"/></td>
@@ -48,6 +65,7 @@
 				<th>Modelo Carro</th>
 				<th>Data</th>
 				<th>Dias</th>
+				<th>Ações</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -63,6 +81,11 @@
 				<td><%=a.getModeloCarro()%></td>
 				<td><%=a.getDataInicio()%></td>
 				<td><%=a.getDias()%></td>
+				<td>
+					<a href="./aluguelCarros?id=<%=a.getId()%>">
+						Editar
+					</a>  -   Remover
+				</td>
 			</tr>
 		<% }  %>
 		</tbody>
