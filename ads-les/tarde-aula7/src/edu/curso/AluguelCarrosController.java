@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/aluguelCarros")
 public class AluguelCarrosController extends HttpServlet{
 	private static final long serialVersionUID = 5227031325710536347L;
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		System.out.println("Servlet foi acionado");
@@ -34,6 +34,9 @@ public class AluguelCarrosController extends HttpServlet{
 			
 		AluguelCarro a = new AluguelCarro();
 		try {
+			if (id == null || id.isEmpty()) { 
+				id = "0";
+			}
 			a.setId(Integer.parseInt(id));
 			a.setModeloCarro(modelo);	
 			a.setDataInicio(sdf.parse(data));
