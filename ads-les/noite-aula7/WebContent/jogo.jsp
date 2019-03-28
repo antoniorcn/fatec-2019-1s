@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Gestão de Jogos</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
 </head>
 <body>
 
@@ -40,8 +41,23 @@
 			</tr>
 			<tr>
 				<td>Genero</td>
-				<td><input type="text" name="genero"
-				value="<%=jogo.getGenero()%>"/></td>
+				<td>
+					<select name="genero">
+						<option value="acao" 
+							<%=jogo.getGenero().equals("acao")?"selected" : ""%>>Ação</option>
+						<option value="aventura"
+							<%=jogo.getGenero().equals("aventura")?"selected" : ""%>>Aventura</option>
+						<option value="labirinto"
+							<%=jogo.getGenero().equals("labirinto")?"selected" : ""%>>Labirinto</option>
+						<option value="plataforma"
+							<%=jogo.getGenero().equals("plataforma")?"selected" : ""%>>Plataforma</option>
+						<option value="rpg"
+							<%=jogo.getGenero().equals("rpg")?"selected" : ""%>>RPG</option>
+					</select>
+				</td>
+				
+				<%-- <input type="text" 
+				value="<%=jogo.getGenero()%>"/></td> --%>
 			</tr>
 			<tr>
 				<td>Preco</td>
@@ -64,20 +80,33 @@
 		if (lista == null) { 
 			lista = new ArrayList<>();
 		} else { 
-			for (Jogo j : lista) { 	%>
-			
-			<h3>
-				<%=j.getId()%> -- 
-				<%=j.getNome()%> -- 
-				<%=j.getGenero()%> -- 
-				<%=j.getPreco()%> -- 
-				<%=sdf.format(j.getLancamento())%> -- 
-				<a href="./jogo?id=<%=j.getId()%>">Editar</a> -- Remover
-			</h3>
-			
-		<%	}
-		}
 	%>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Genero</th>
+					<th>Preço</th>
+					<th>Lançamento</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+				<tbody>
+	<%
+			for (Jogo j : lista) { 	%>
+			<tr>
+				<td><%=j.getId()%></td> 
+				<td><%=j.getNome()%></td> 
+				<td><%=j.getGenero()%></td> 
+				<td><%=j.getPreco()%></td> 
+				<td><%=sdf.format(j.getLancamento())%></td> 
+				<td><a href="./jogo?id=<%=j.getId()%>">Editar</a></td>
+			</tr>		
+		<%	} %>
+			</tbody>
+		</table>
+		<% }  %>
 
 </body>
 </html>
