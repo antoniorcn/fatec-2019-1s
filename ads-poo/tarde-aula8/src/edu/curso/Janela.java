@@ -22,13 +22,13 @@ public class Janela extends Application {
 		Pane painel = new Pane();
 		Scene scn = new Scene(painel, 640, 480);
 		
-		String fileNameHappy = "C:/Users/anton/git/arcarini/images/Characters/face_happy_small.png";
-		String fileNameFourious = "C:/Users/anton/git/arcarini/images/Characters/face_furious_small.png";
-		InputStream isHappy = new FileInputStream(fileNameHappy);
-		InputStream isFourious = new FileInputStream(fileNameFourious);
+//		String fileNameHappy = "C:/Users/anton/git/arcarini/images/Characters/face_happy_small.png";
+//		String fileNameFourious = "C:/Users/anton/git/arcarini/images/Characters/face_furious_small.png";
+//		InputStream isHappy = new FileInputStream(fileNameHappy);
+//		InputStream isFourious = new FileInputStream(fileNameFourious);
 		
-//		InputStream isHappy = getClass().getResourceAsStream("images/face_happy_small.png");
-//		InputStream isFourious = getClass().getResourceAsStream("images/face_furious_small.png");
+		InputStream isHappy = getClass().getResourceAsStream("/images/face_happy_small.png");
+		InputStream isFourious = getClass().getResourceAsStream("/images/face_furious_small.png");
 		ImageView imgHappy = new ImageView(new Image(isHappy));
 		ImageView imgFourious = new ImageView(new Image(isFourious));
 		Label hello = new Label("Happy Face");
@@ -39,9 +39,10 @@ public class Janela extends Application {
 		    @Override public void handle(ActionEvent e) {
 		    	btn.setGraphic(imgFourious);
 		    	hello.setText("Fourious Face");
+		    	hello.setStyle("-fx-background-color:red");
 		    }
 		});
-		hello.setStyle("-fx-background-color:#FF0000");
+		hello.setStyle("-fx-background-color:yellow");
 		painel.getChildren().addAll(hello, btn);
 		
 		janela.setScene(scn);
