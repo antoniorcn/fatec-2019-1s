@@ -1,8 +1,12 @@
 package edu.curso;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -17,6 +21,13 @@ public class GroupVsPaneDemo extends Application {
     public void start(Stage primaryStage) {
         Pane pane = new Pane();
         Group group = new Group();
+        Button btn = new Button("Hello");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent a) {
+				System.out.println("Hello" + a.getEventType().toString());
+			}        	
+        });
 
         VBox.setVgrow(group, Priority.NEVER);
         VBox.setVgrow(pane, Priority.NEVER);
@@ -36,6 +47,12 @@ public class GroupVsPaneDemo extends Application {
         pane.setStyle("-fx-background-color:yellow;");
         group.getChildren().addAll(rect1, rect3);
         pane.getChildren().addAll(rect2, rect4);
+        
+        group.getChildren().add(btn);
+        //btn.setPadding(new Insets(100, 100, 100, 100));
+        btn.relocate(130, 130);
+        //btn.setLayoutX(60);
+        //btn.setLayoutY(70);
 
         Scene scene = new Scene(vbox, 800, 600);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
