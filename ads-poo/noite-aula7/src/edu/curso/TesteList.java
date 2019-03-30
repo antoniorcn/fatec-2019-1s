@@ -16,5 +16,7 @@ public class TesteList {
 		for (Carro o : lista) { 
 			System.out.println(o);
 		}
+		String g;
+		g.
 	}
 }
