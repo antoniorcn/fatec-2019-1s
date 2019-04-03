@@ -106,6 +106,23 @@
 			</tr>		
 		</table>
 	</form>
+	<!-- 
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  		Ver resultados
+	</button>
+	 -->
+	
+	<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
 	<table border="1">
 		<thead>
 			<tr>
@@ -130,13 +147,31 @@
 				<td><%=sdf.format(a.getDataInicio())%></td>
 				<td><%=a.getDias()%></td>
 				<td>
-					<a href="./aluguelCarros?id=<%=a.getId()%>">
+					<a href="./aluguelCarros?cmd=editar&id=<%=a.getId()%>">
 						Editar
-					</a>  -   Remover
+					</a>  -   
+					<a href="./aluguelCarros?cmd=remover&id=<%=a.getId()%>">
+						Remover
+					</a>
 				</td>
 			</tr>
 		<% }  %>
 		</tbody>
 	</table>
+	
+	      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+	<% if (lista != null && lista.size() > 0) { %>
+		<script>
+		$("#exampleModalLong").modal("show");
+	</script>
+	<% } %>
+	
 </body>
 </html>
