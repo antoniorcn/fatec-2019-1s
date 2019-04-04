@@ -10,4 +10,5 @@ public interface JogoDAO {
 	void remover(long id) throws DAOException;
 	List<Jogo> pesquisarPorNome(String nome) throws DAOException;
 	List<Jogo> pesquisarTodos() throws DAOException;
+	Jogo pesquisarPorId(long id) throws DAOException;
 }

@@ -100,4 +100,29 @@ public class JogoDAOImpl implements JogoDAO {
 		return pesquisarPorNome("");
 	}
 
+	@Override
+	public Jogo pesquisarPorId(long id) throws DAOException {
+		Jogo j = null;
+		con = ConnectionBuilder.getInstance().getConnection();
+		try {
+			String sql = "SELECT * FROM jogo WHERE id = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) { 
+				j = new Jogo();
+				j.setId(rs.getLong("id"));
+				j.setNome(rs.getString("nome"));
+				j.setGenero(rs.getString("genero"));
+				j.setLancamento(rs.getDate("lancamento"));
+				j.setPreco(rs.getFloat("preco"));
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		}
+		return j;
+	}
+
 }
