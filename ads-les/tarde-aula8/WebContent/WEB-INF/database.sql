@@ -2,7 +2,7 @@ create database alugueis;
 
 use alugueis;
 
-create table alguel_carro (
+create table aluguel_carro (
 	id int PRIMARY KEY AUTO_INCREMENT,
 	modelo varchar(100),
 	data_inicio date,
