@@ -1,6 +1,8 @@
 package edu.curso;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,7 +11,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Calculadora extends Application {
+public class Calculadora extends Application implements EventHandler<ActionEvent>{
+
+	private TextField txtNumeros;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -33,11 +37,12 @@ public class Calculadora extends Application {
 			row = i / 4;
 			col = i % 4;
 			Button botao = new Button(nomes[i]);
+			botao.setOnAction(this);
 			botao.setPrefHeight(50);
 			botao.setPrefWidth(50);
 			painelBotoes.add( botao, col, row );
 		}
-		TextField txtNumeros = new TextField();
+		txtNumeros = new TextField();
 		txtNumeros.setPrefHeight(50);
 		Button btnCE = new Button("CE");
 		btnCE.setPrefHeight(50);
@@ -54,6 +59,13 @@ public class Calculadora extends Application {
 	
 	public static void main(String[] args) {
 		Application.launch(args);
+	}
+
+	@Override
+	public void handle(ActionEvent event) {
+		Button btn = (Button)event.getTarget();
+		//System.out.println(btn.getText());
+		txtNumeros.setText(txtNumeros.getText() + btn.getText());
 	}
 
 }
