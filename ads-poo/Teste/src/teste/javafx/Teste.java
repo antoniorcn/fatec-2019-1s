@@ -8,8 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -17,7 +19,7 @@ public class Teste extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Pane root = new Pane();
+		BorderPane root = new BorderPane();
 		Button btn = new Button("Aperte-me");
 		
 		// EventFilter para o Pane
@@ -61,8 +63,8 @@ public class Teste extends Application {
 		};
 		root.addEventHandler(ActionEvent.ACTION, evtHandlerRoot);
 		
-		root.getChildren().add(btn);
-		Scene scn = new Scene(root);
+		root.setCenter(btn);
+		Scene scn = new Scene(root, 800, 600);
 		
 		stage.setScene(scn);
 		stage.show();
