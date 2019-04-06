@@ -19,7 +19,7 @@ public class Calculadora extends Application implements EventHandler<ActionEvent
 	public void start(Stage stage) throws Exception {
 		BorderPane painelPrincipal = new BorderPane();
 		FlowPane painelDisplay = new FlowPane();
-		painelDisplay.setHgap(20);
+		painelDisplay.setHgap(20);		
 		GridPane painelBotoes = new GridPane();
 	      //Setting the orientation for the Tile Pane 
 		//painelBotoes.setOrientation(Orientation.VERTICAL); 
@@ -56,16 +56,12 @@ public class Calculadora extends Application implements EventHandler<ActionEvent
 		stage.setScene(scn);
 		stage.show();
 	}
-	
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
-
 	@Override
 	public void handle(ActionEvent event) {
 		Button btn = (Button)event.getTarget();
-		//System.out.println(btn.getText());
 		txtNumeros.setText(txtNumeros.getText() + btn.getText());
 	}
-
 }
