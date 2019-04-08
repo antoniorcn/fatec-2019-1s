@@ -8,6 +8,10 @@
 				canvas = document.getElementById("canvas");
 				ctx = canvas.getContext("2d");
 				console.log(ctx);
+				ctx.fillStyle="#000000";
+				ctx.fillRect(0, 0, 800, 600);
+				ctx.fillStyle = "#FF0000";
+				ctx.fillRect(300, 250, 200, 100);
 			}
 			document.addEventListener(
 					"DOMContentLoaded", inicializa);
