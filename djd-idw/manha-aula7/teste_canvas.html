@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<script>
+			var canvas;
+			var ctx;
+			function inicializa() {
+				console.log("Inicializado");
+				canvas = document.getElementById("canvas");
+				ctx = canvas.getContext("2d");
+				console.log(ctx);
+			}
+			document.addEventListener(
+					"DOMContentLoaded", inicializa);
+		</script>
+	</head>
+	<body>
+		<h1>Teste de canvas</h1>
+		<canvas id="canvas" width="800" height="600"/>
+	</body>
+</html>
