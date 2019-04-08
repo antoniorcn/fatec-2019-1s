@@ -7,14 +7,17 @@
 		<p>Teste de Paragrafo 3</p>
 		<p>Teste de Paragrafo 4</p>
 		<script>
+			var cores = ["yellow", "red", "green", "blue"];
+			var iCor = 0;
 			function mudarCor() { 
 				var tagsP = document.getElementsByTagName("p");
-				tagsP[0].style="color:red;";
-				tagsP[0].innerHTML = "Teste modificado pelo Javascript";
-			}
-			
-			var cores = ["yellow", "red", "green", "blue"];
-			document.write("<h2>Texto inseriro pelo Javascript</h2>");
+				for(var i = 0; i< tagsP.length; i++) {
+					var cor = (iCor + i) % cores.length;
+					tagsP[i].style="color:" + cores[cor]+ ";";
+				}
+				iCor++;
+			}			
+			window.setInterval(mudarCor, 500);		
 		</script>		
 	</body>
 </html>
