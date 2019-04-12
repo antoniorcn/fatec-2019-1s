@@ -1,5 +1,11 @@
 package edu.curso.javafx;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -8,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -26,6 +31,8 @@ public class JanelaSimples extends Application {
 			if (e.getButton() == MouseButton.PRIMARY) { 
 				Rectangle r = new Rectangle(e.getX(), e.getY(), 5, 5);
 				pane.getChildren().add(r);
+				//Line
+				//Ellipse
 			}
 		} 
 	}
@@ -37,14 +44,14 @@ public class JanelaSimples extends Application {
 			lblOla.relocate(10, 10);
 			Button btnOk = new Button("Aperte-me");
 			btnOk.relocate(40, 30);
-			pane.getChildren().addAll(lblOla, btnOk);
+			pane.getChildren().addAll(lblOla);
 			EventHandler<MouseEvent> manipulador = new ManipuladorClick();
 			scn.addEventFilter(MouseEvent.ANY, manipulador);
 			stage.setScene(scn);
-			stage.setTitle("Teste de Eventos");
+			stage.setTitle("Hello World");
 			stage.show();
 	}
 	public static void main(String[] args) {
-		Application.launch(args);
+		Application.launch(args);	
 	}
 }
