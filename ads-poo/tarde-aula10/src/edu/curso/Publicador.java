@@ -2,7 +2,11 @@ package edu.curso;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-public class DianaZambro implements Autor {
+public class Publicador implements Autor {
+	private String nome;
+	public Publicador(String nome) {
+		this.nome = nome;
+	}
 	List<Seguidor> lista = new ArrayList<>();
 	public void adicionar(Seguidor s) {
 		lista.add(s);
@@ -12,7 +16,7 @@ public class DianaZambro implements Autor {
 	}
 	public void publicar(String msg, Date d) {
 		for (Seguidor s : lista) { 
-			s.receberNotificacao(msg, d);
+			s.receberNotificacao(nome + " informa " + msg, d);
 		}
 	}
 }
