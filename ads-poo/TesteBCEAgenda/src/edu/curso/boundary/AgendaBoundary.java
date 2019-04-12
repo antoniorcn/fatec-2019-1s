@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -43,6 +44,7 @@ public class AgendaBoundary extends Application implements EventHandler<ActionEv
 		
 		Scene scene = new Scene(root, 400, 500);
 		stage.setScene(scene);
+		stage.setTitle("Agenda Telefonica");
 		stage.show();
 	}
 	
@@ -78,10 +80,16 @@ public class AgendaBoundary extends Application implements EventHandler<ActionEv
 	private void defineTableColumns() { 
 		TableColumn<Agenda, String> nomeColumn = new TableColumn<>("Nome");
 		nomeColumn.setCellValueFactory(
-				itemData -> new ReadOnlyStringWrapper(itemData.getValue().getNome()));
+				 itemData -> new ReadOnlyStringWrapper(itemData.getValue().getNome()));
+				// new ReadOnlyStringWrapper("nome"));
+				// new PropertyValueFactory<Agenda, String>("nome") );
+		nomeColumn.setPrefWidth(400);
 		TableColumn<Agenda, String> telefoneColumn = new TableColumn<>("Telefone");
 		telefoneColumn.setCellValueFactory(
-				itemData -> new ReadOnlyStringWrapper(itemData.getValue().getTelefone()));		
+				new PropertyValueFactory<Agenda, String>("telefone") );
+				// itemData -> new ReadOnlyStringWrapper(itemData.getValue().getTelefone()));
+				// new ReadOnlyStringWrapper(), "telefone");
+				// new PropertyValueFactory<Agenda, String>("telefone") );
 		
 		table.getColumns().addAll(nomeColumn, telefoneColumn);
 		table.setItems(control.getTableData());
