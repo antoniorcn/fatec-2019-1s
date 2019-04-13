@@ -22,7 +22,6 @@ public class TesteEventos extends Application {
 			lblOla.relocate(e.getX(), e.getY());
 			Rectangle r = new Rectangle(e.getX(), e.getY(), 5, 5);
 			root.getChildren().add(r);
-			
 		} 
 	}
 	public void start(Stage stage) throws Exception {	
