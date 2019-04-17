@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 public class TesteJPA {
 	public static void criarInstancia(EntityManagerFactory emf) { 
 		Aluno a1 = new Aluno();
@@ -49,10 +50,33 @@ public class TesteJPA {
 		em.close();
 	}
 	
+	
+	public static void pesquisarTodos(EntityManagerFactory emf) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Aluno> qry = 
+				em.createQuery("select a from Aluno a", Aluno.class);
+		List<Aluno> alunos = qry.getResultList();
+		for (Aluno a : alunos) { 
+			System.out.println(a);
+		}
+		em.close();
+	}
+	
+	public static void pesquisarTodasSalas(EntityManagerFactory emf) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<SalaAula> qry = 
+				em.createQuery("select a from SalaAula a", SalaAula.class);
+		List<SalaAula> salas = qry.getResultList();
+		for (SalaAula a : salas) { 
+			System.out.println(a);
+		}
+		em.close();
+	}
+	
 	public static void main(String[] args) {
 		EntityManagerFactory emf = 
 				Persistence.createEntityManagerFactory("ALUNOS");
-		criarInstancia(emf);
+		pesquisarTodasSalas(emf);
 		emf.close();
 	}
 }

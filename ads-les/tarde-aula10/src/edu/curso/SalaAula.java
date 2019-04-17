@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -45,11 +46,21 @@ public class SalaAula implements Serializable {
 		this.disciplina = disciplina;
 	}
 	
-	@OneToMany(targetEntity = Aluno.class)
+	@OneToMany(targetEntity = Aluno.class, fetch=FetchType.LAZY)
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(String.format("ID:%d  Disciplina: %s", id, disciplina));
+		for (Aluno a : alunos) { 
+			sb.append(a.toString());
+		}
+		return sb.toString();
 	}
 }

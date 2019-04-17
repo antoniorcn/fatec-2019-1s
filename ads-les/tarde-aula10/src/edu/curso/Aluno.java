@@ -39,4 +39,9 @@ public class Aluno implements Serializable {
 	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("ID:%d  Nome: %s  RA: %s", id, nome, ra);
+	}
 }
