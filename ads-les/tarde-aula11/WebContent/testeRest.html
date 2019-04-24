@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Teste Rest</title>
+	<script src="./jquery-3.4.0.js"></script>
+</head>
+<body>
+	<button value="dados" onclick="onclick_button();">Ler Dados</button>
+	<div id="teste"></div>
+	<script type="text/javascript">
+		function onclick_button() {
+		$(document).load("./rest", function(responseTxt, statusTxt, xhr){
+		    if(statusTxt == "success")
+		    	var texto = "<TABLE border='2'>";
+				var lista = JSON.parse(responseTxt);
+		    	for (var i = 0; i < lista.length; i++) {
+		    		texto += "<TR>";
+		    			var elemento = lista[i];
+		    			texto += "<TD>" + elemento.id + "</TD>";
+		    			texto += "<TD>" + elemento['modeloCarro'] + "</TD>";
+		    			texto += "<TD>" + elemento['dataInicio'] + "</TD>";
+		    			texto += "<TD>" + elemento['dias'] + "</TD>";
+		    			texto += "<TD>" + elemento['valorDiaria'] + "</TD>";
+		    		texto += "</TR>";
+		    	}
+		    	texto += "<TABLE>";
+		    	$('#teste').append( texto );
+		    if(statusTxt == "error")
+		      alert("Error: " + xhr.status + ": " + xhr.statusText);
+	  	});
+		}
+	</script>
+</body>
+</html>
