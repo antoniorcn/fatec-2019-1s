@@ -4,15 +4,12 @@
         version="2.0">
     <persistence-unit name="ALUGUELCARROS">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    	<non-jta-data-source>jdbc/aluguelCarros</non-jta-data-source>
     	<properties>
     		<property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect"/>
     		<property name="hibernate.hbm2ddl.auto" value="update"/>
     		<property name="hibernate.show_sql" value="true"/>
     		<property name="hibernate.format_sql" value="false"/>
-    		<property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-    		<property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/alugueis?createDatabaseIfNotExist=true"/>
-    		<property name="javax.persistence.jdbc.user" value="root"/>
-    		<property name="javax.persistence.jdbc.password" value=""/>
 		</properties>
     </persistence-unit>
 </persistence>

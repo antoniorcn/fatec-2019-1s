@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import edu.curso.AluguelCarro;
 
@@ -22,41 +23,55 @@ public class AluguelDAOImpl implements AluguelDAO {
 		em.getTransaction().begin();
 		em.persist(a);
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
 	public List<AluguelCarro> pesquisar(Date d) {
-		List<AluguelCarro> lista = new ArrayList<>();
-		String sql = "SELECT * FROM aluguel_carro WHERE data_inicio=?";
-		
+		EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+		String sql = "select ac from aluguel_carros ac where dataInicio = :data";
+		TypedQuery<AluguelCarro> qry = em.createQuery(sql, AluguelCarro.class);
+		qry.setParameter("data", d);
+		List<AluguelCarro> lista = qry.getResultList();
+		em.close();
 		return lista;
 	}
 
 	@Override
 	public void remover(long id) {
-		String sql = "DELETE FROM aluguel_carro WHERE id=?";
-		
+		EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+		AluguelCarro ac = em.find(AluguelCarro.class, id);
+		em.getTransaction().begin();
+		em.remove(ac);
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
 	public void atualizar(long id, AluguelCarro a) {
-		String sql = "UPDATE aluguel_carro SET modelo=?, "
-				+ "data_inicio=?, dias=?, valor_diaria=? WHERE id=?";
+		EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+		em.getTransaction().begin();
+		em.merge(a);
+		em.getTransaction().commit();
+		em.close();
 		
 	}
 
 	@Override
 	public AluguelCarro pesquisarPorId(long id) {
-		String sql = "SELECT * FROM aluguel_carro WHERE id=?";
-		
-		return null;
+		EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+		AluguelCarro ac = em.find(AluguelCarro.class, id);
+		em.close();
+		return ac;
 	}
 
 	@Override
 	public List<AluguelCarro> pesquisarTodos() {
-		List<AluguelCarro> lista = new ArrayList<>();
-		String sql = "SELECT * FROM aluguel_carro";
-		
+		EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+		String sql = "select ac from aluguel_carros ac";
+		TypedQuery<AluguelCarro> qry = em.createQuery(sql, AluguelCarro.class);
+		List<AluguelCarro> lista = qry.getResultList();
+		em.close();
 		return lista;
 	}
 

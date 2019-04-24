@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true">
+  <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" 
+  			maxActive="30" maxIdle="10" maxWait="10000"
+  			type="javax.sql.DataSource"
+  			url="jdbc:mysql://localhost/alugueis?createDatabaseIfNotExist=true"
+  			name="jdbc/aluguelCarros"
+  			username="root"	password=""/>
+</Context>
