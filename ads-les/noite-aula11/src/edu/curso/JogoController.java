@@ -97,13 +97,6 @@ public class JogoController extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else if ("Salvar".equals(cmd)) {
-				//				for (Jogo jogo : lista) { 
-				//					if (jogo.getId() == j.getId()) {
-				//						lista.remove(jogo);
-				//						lista.add(j);
-				//						break;
-				//					}
-				//				}
 				try {
 					jogoDao.atualizar(j.getId(), j);
 					texto = "Jogo atualizado com sucesso";
