@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Lista Jogos</title>
+	<script src="./js/jquery-3.4.0.js"></script>
+</head>
+<body>
+	<button onclick="buscaLista();">Busca Lista</button>
+	<div id="tabelaJogos"></div>
+	
+	<script>
+		function buscaLista() { 
+			var div = document.getElementById("tabelaJogos");
+			$(document).load("./ajax", function(txtResponse, status, xmlh) { 
+				if (status == "success") { 
+					var lista = JSON.parse(txtResponse);
+					var texto = "<TABLE border='2'>";
+					for (var i = 0; i < lista.length; i++) {
+						var elemento = lista[i];
+						texto += "<TR>";
+						texto += "<TD>" + elemento.id + "</TD>";
+						texto += "<TD>" + elemento.nome + "</TD>";
+						texto += "<TD>" + elemento.genero + "</TD>";
+						texto += "<TD>" + elemento.preco + "</TD>";
+						texto += "<TD>" + elemento.lancamento + "</TD>";
+						texto += "</TR>";
+					}
+					texto += "</TABLE>";
+					div.innerHTML = texto;
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
