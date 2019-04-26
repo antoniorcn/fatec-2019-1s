@@ -1,0 +1,17 @@
+-- Lista de comandos do MYSQL 
+
+mysql -u root			 -- Conecta no servidor
+
+create database filmes;	 -- Cria o banco de dados
+show databases;			 -- Mostra os bancos de dados
+
+use filmes;				 -- Seleciona um banco de dados
+
+create table filme(
+	nome_filme char(100)
+);						-- Cria uma tabela no banco
+
+show tables;			-- Mostra as tabelas no DB
+desc filme;				-- Descreve a tabela
+select * from filme;	-- Mostra todos os registros da tabela
+insert into filme values ('Vingadores - O Ultimato');
