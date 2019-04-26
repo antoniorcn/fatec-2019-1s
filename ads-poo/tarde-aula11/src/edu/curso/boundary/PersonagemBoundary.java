@@ -30,6 +30,8 @@ public class PersonagemBoundary extends Application implements EventHandler<Acti
 	private Button btnPesquisar = new Button("Pesquisar");
 
 	private List<Personagem> lista = new ArrayList<>();
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -65,39 +67,46 @@ public class PersonagemBoundary extends Application implements EventHandler<Acti
 
 	@Override
 	public void handle(ActionEvent e) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (e.getTarget() == btnSalvar) { 
-			Personagem p = new Personagem();
-			try {
-				p.setId( Long.parseLong(txtId.getText()) );
-				p.setNome( txtNome.getText() );
-				p.setAltura( Float.parseFloat(txtAltura.getText()) );
-				p.setForca( Float.parseFloat(txtForca.getText()) );
-				p.setHabilidade( txtHabilidade.getText() );
-				p.setDoMal( chkMal.isSelected() );
-				Date d = sdf.parse( txtNascimento.getText() );
-				p.setNascimento( d );
-			} catch (NumberFormatException e1) {
-				e1.printStackTrace();
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
+			Personagem p = boundaryToPersonagem();
 			lista.add(p);
 			System.out.println("Adicionando na lista Tamanho:" + lista.size());
 		} else if (e.getTarget() == btnPesquisar) {
 			System.out.println("Pesquisando na lista");
 			for (Personagem p : lista) { 
 				if(p.getNome().contains(txtNome.getText())) { 
-					txtId.setText( String.format("%d", p.getId()) );
-					txtNome.setText(  p.getNome() );
-					txtAltura.setText(  String.format("%6.2f", p.getAltura()) );
-					txtForca.setText(  String.format("%6.2f", p.getForca()) );
-					txtHabilidade.setText(  p.getHabilidade() );
-					chkMal.setSelected( p.isDoMal() );
-					txtNascimento.setText(sdf.format(p.getNascimento()));		
+					personagemToBoundary(p);		
 				}
 			}
-			
 		}
+	}
+
+	public void personagemToBoundary(Personagem p) {
+		txtId.setText( String.format("%d", p.getId()) );
+		txtNome.setText(  p.getNome() );
+		txtAltura.setText(  String.format("%6.2f", p.getAltura()) );
+		txtForca.setText(  String.format("%6.2f", p.getForca()) );
+		txtHabilidade.setText(  p.getHabilidade() );
+		chkMal.setSelected( p.isDoMal() );
+		txtNascimento.setText(sdf.format(p.getNascimento()));
+	}
+
+	public Personagem boundaryToPersonagem() {
+		Personagem p = new Personagem();
+		try {
+			p.setId( Long.parseLong(txtId.getText()) );
+			p.setNome( txtNome.getText() );
+			p.setAltura( Float.parseFloat(txtAltura.getText()) );
+			p.setForca( Float.parseFloat(txtForca.getText()) );
+			p.setHabilidade( txtHabilidade.getText() );
+			p.setDoMal( chkMal.isSelected() );
+			Date d = sdf.parse( txtNascimento.getText() );
+			p.setNascimento( d );
+		} catch (NumberFormatException e1) {
+			e1.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		return p;
 	}
 }
