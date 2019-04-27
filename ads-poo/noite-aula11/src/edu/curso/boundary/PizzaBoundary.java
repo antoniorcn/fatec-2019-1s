@@ -31,6 +31,7 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	private ComboBox<String> cmbTamanho = new ComboBox(tamanhos);
 	private TextField txtFabricacao = new TextField();
 	private Button btnSalvar = new Button("Salvar");
+	private Button btnPesquisar = new Button("Pesquisar");
 	
 	List<Pizza> lista = new ArrayList<>();
 	
@@ -52,8 +53,11 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 		grid.add(new Label("Fabricacao"), 0, 5);
 		grid.add(txtFabricacao, 1, 5);
 		grid.add(btnSalvar, 0, 6);
+		grid.add(btnPesquisar, 1, 6);
 		
 		btnSalvar.addEventFilter(ActionEvent.ACTION, this);
+		// btnPesquisar.setOnAction(this);
+		btnPesquisar.addEventFilter(ActionEvent.ACTION, this);
 		
 		
 		stage.setScene(scene);
@@ -68,23 +72,37 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	@Override
 	public void handle(ActionEvent event) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Pizza p = new Pizza();
-		p.setSabor( txtSabor.getText() );
-		p.setIngredientes( txtIngredientes.getText() );
-		p.setTamanho( cmbTamanho.getValue() );
-		try {
-			p.setId( Long.parseLong(txtId.getText()) );
-			p.setPreco( Float.parseFloat(txtPreco.getText()) );
-			Date d = sdf.parse(txtFabricacao.getText());
-			p.setFabricacao(d);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if (event.getTarget() == btnSalvar) { 
+			Pizza p = new Pizza();
+			p.setSabor( txtSabor.getText() );
+			p.setIngredientes( txtIngredientes.getText() );
+			p.setTamanho( cmbTamanho.getValue() );
+			try {
+				p.setId( Long.parseLong(txtId.getText()) );
+				p.setPreco( Float.parseFloat(txtPreco.getText()) );
+				Date d = sdf.parse(txtFabricacao.getText());
+				p.setFabricacao(d);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			lista.add(p);
+			System.out.println(
+					String.format("Adicionado a pizza %s na lista, tamanho: %d ", 
+							p, lista.size()));
+		} else if (event.getTarget() == btnPesquisar) { 
+			for (Pizza p : lista) { 
+				if (p.getSabor().contains(txtSabor.getText())) { 
+					txtId.setText( String.valueOf(p.getId()) );
+					txtSabor.setText( p.getSabor() );
+					txtIngredientes.setText( p.getIngredientes() );
+					cmbTamanho.setValue( p.getTamanho() );
+					txtPreco.setText( String.format("%6.2f", p.getPreco()) );
+					String strData = sdf.format( p.getFabricacao() );
+					txtFabricacao.setText( strData );
+				}
+			}
 		}
-		lista.add(p);
-		System.out.println(
-				String.format("Adicionado a pizza %s na lista, tamanho: %d ", 
-						p, lista.size()));
 	}
 }
