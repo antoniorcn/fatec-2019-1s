@@ -33,7 +33,8 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	private Button btnSalvar = new Button("Salvar");
 	private Button btnPesquisar = new Button("Pesquisar");
 	
-	List<Pizza> lista = new ArrayList<>();
+	private List<Pizza> lista = new ArrayList<>();
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	
 	@Override
@@ -71,38 +72,47 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 
 	@Override
 	public void handle(ActionEvent event) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (event.getTarget() == btnSalvar) { 
-			Pizza p = new Pizza();
-			p.setSabor( txtSabor.getText() );
-			p.setIngredientes( txtIngredientes.getText() );
-			p.setTamanho( cmbTamanho.getValue() );
-			try {
-				p.setId( Long.parseLong(txtId.getText()) );
-				p.setPreco( Float.parseFloat(txtPreco.getText()) );
-				Date d = sdf.parse(txtFabricacao.getText());
-				p.setFabricacao(d);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			Pizza p = boundaryToPizza();
 			lista.add(p);
 			System.out.println(
 					String.format("Adicionado a pizza %s na lista, tamanho: %d ", 
 							p, lista.size()));
+			pizzaToBoundary(new Pizza());
 		} else if (event.getTarget() == btnPesquisar) { 
 			for (Pizza p : lista) { 
 				if (p.getSabor().contains(txtSabor.getText())) { 
-					txtId.setText( String.valueOf(p.getId()) );
-					txtSabor.setText( p.getSabor() );
-					txtIngredientes.setText( p.getIngredientes() );
-					cmbTamanho.setValue( p.getTamanho() );
-					txtPreco.setText( String.format("%6.2f", p.getPreco()) );
-					String strData = sdf.format( p.getFabricacao() );
-					txtFabricacao.setText( strData );
+					pizzaToBoundary(p);
 				}
 			}
 		}
+	}
+
+	private void pizzaToBoundary(Pizza p) {
+		txtId.setText( String.valueOf(p.getId()) );
+		txtSabor.setText( p.getSabor() );
+		txtIngredientes.setText( p.getIngredientes() );
+		cmbTamanho.setValue( p.getTamanho() );
+		txtPreco.setText( String.format("%6.2f", p.getPreco()) );
+		String strData = sdf.format( p.getFabricacao() );
+		txtFabricacao.setText( strData );
+	}
+
+	private Pizza boundaryToPizza() {
+		Pizza p = new Pizza();
+		p.setSabor( txtSabor.getText() );
+		p.setIngredientes( txtIngredientes.getText() );
+		p.setTamanho( cmbTamanho.getValue() );
+		try {
+			p.setId( Long.parseLong(txtId.getText()) );
+			p.setPreco( Float.parseFloat(txtPreco.getText()) );
+			Date d = sdf.parse(txtFabricacao.getText());
+			p.setFabricacao(d);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return p;
 	}
 }

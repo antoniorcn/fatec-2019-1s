@@ -8,7 +8,7 @@ public class Pizza {
 	private float preco;
 	private String ingredientes;
 	private String tamanho;
-	private Date fabricacao;
+	private Date fabricacao = new Date();
 	
 	public long getId() {
 		return id;
