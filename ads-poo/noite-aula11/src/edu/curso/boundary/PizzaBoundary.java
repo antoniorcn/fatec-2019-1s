@@ -8,21 +8,27 @@ import java.util.List;
 
 import edu.curso.entidade.Pizza;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class PizzaBoundary extends Application implements EventHandler<ActionEvent>{
+	private ObservableList<String> tamanhos 
+	= FXCollections.observableArrayList("pequeno", "medio", "grande");
+
 	private TextField txtId = new TextField();
 	private TextField txtSabor = new TextField();
 	private TextField txtPreco = new TextField();
 	private TextField txtIngredientes = new TextField();
-	private TextField txtTamanho = new TextField();
+	private ComboBox<String> cmbTamanho = new ComboBox(tamanhos);
 	private TextField txtFabricacao = new TextField();
 	private Button btnSalvar = new Button("Salvar");
 	
@@ -42,7 +48,7 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 		grid.add(new Label("Ingredientes"), 0, 3);
 		grid.add(txtIngredientes, 1, 3);
 		grid.add(new Label("Tamanho"), 0, 4);
-		grid.add(txtTamanho, 1, 4);
+		grid.add(cmbTamanho, 1, 4);
 		grid.add(new Label("Fabricacao"), 0, 5);
 		grid.add(txtFabricacao, 1, 5);
 		grid.add(btnSalvar, 0, 6);
@@ -65,7 +71,7 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 		Pizza p = new Pizza();
 		p.setSabor( txtSabor.getText() );
 		p.setIngredientes( txtIngredientes.getText() );
-		p.setTamanho( txtTamanho.getText() );
+		p.setTamanho( cmbTamanho.getValue() );
 		try {
 			p.setId( Long.parseLong(txtId.getText()) );
 			p.setPreco( Float.parseFloat(txtPreco.getText()) );
@@ -77,6 +83,8 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 			e.printStackTrace();
 		}
 		lista.add(p);
-		System.out.println("Adicionado na lista, tamanho: "+ lista.size());
+		System.out.println(
+				String.format("Adicionado a pizza %s na lista, tamanho: %d ", 
+						p, lista.size()));
 	}
 }

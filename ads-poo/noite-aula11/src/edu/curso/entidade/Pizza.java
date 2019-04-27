@@ -53,6 +53,6 @@ public class Pizza {
 	}
 	
 	public String toString() { 
-		return String.format("%s ...... %6.2f", this.sabor, this.preco);
+		return String.format("%s (%s) ...... %6.2f", this.sabor, this.tamanho, this.preco);
 	}
 }
