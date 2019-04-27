@@ -16,8 +16,9 @@ def get_frame(lin, col):
 
 col = 0
 lin = 0
+estado_esquerda = 1
 while True:
-    col = (col % 8) + 1
+    col = (col + 1) % estado_esquerda
     frame1 = get_frame(lin, col)
     screen.fill((255, 255, 255))
     screen.blit(frame1, (50, 50))
@@ -32,5 +33,10 @@ while True:
                 lin = 0
             elif e.key == pygame.K_a:
                 lin = 1
+                estado_esquerda = 8
+        elif e.type == pygame.KEYUP:
+            if e.key == pygame.K_a:
+                lin = 1
+                estado_esquerda = 1
 
     time.sleep(0.1)
