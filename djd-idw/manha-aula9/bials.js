@@ -3,6 +3,9 @@ var canvas;
 var ctx;
 var w, h;
 var imgHeroi;
+var heroi_x = 100, heroi_y = 10;
+var gravidade = 9.8;
+var heroi_vel_y = 0;
 console.log("Javascript bial.js carregado");
 var cenario1 = [   
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -44,11 +47,20 @@ function pintarTela() {
         }
     }
 }
+function calcularRegras() { 
+    var col = Math.floor(heroi_x / w);
+    var lin = Math.floor((heroi_y + h) / h) + 1;
+    console.log(lin + " - " + col);
+    if (cenario1[lin][col] == 0) { 
+        heroi_vel_y += gravidade / 100;
+        heroi_y = heroi_y + heroi_vel_y;
+    }
+}
 function pintarHeroi() { 
-    ctx.drawImage(imgHeroi, 0, 0, 80, 90, 400, 200, 160, 180);
+    ctx.drawImage(imgHeroi, 0, 0, 80, 90, heroi_x, heroi_y, 80, 90);
 }
 function loopJogo() { 
-	// calcularRegras();
+	calcularRegras();
     pintarTela();
     pintarHeroi();
 	// capturarEventos();
