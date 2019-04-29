@@ -6,6 +6,7 @@ var imgHeroi;
 var heroi_x = 100, heroi_y = 10;
 var gravidade = 9.8;
 var heroi_vel_y = 0;
+var heroi_forca_y = 0;
 console.log("Javascript bial.js carregado");
 var cenario1 = [   
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -48,9 +49,14 @@ function pintarTela() {
     }
 }
 function calcularRegras() { 
+    heroi_forca_y = heroi_forca_y + 1;
+    if (heroi_forca_y > 0) { 
+        heroi_forca_y = 0;
+    }
     var col = Math.floor(heroi_x / w);
     var lin = Math.floor((heroi_y + h) / h) + 1;
-    console.log(lin + " - " + col);
+    console.log("Heroi: " + heroi_x + ", " + heroi_y + " Forca:" + heroi_forca_y);
+    heroi_y = heroi_y + heroi_forca_y;
     if (cenario1[lin][col] == 0) { 
         heroi_vel_y += gravidade / 100;
         heroi_y = heroi_y + heroi_vel_y;
@@ -65,6 +71,12 @@ function loopJogo() {
     pintarHeroi();
 	// capturarEventos();
 }
+function capturarEventos(e) { 
+    console.log(e);
+    if (e.code == "Space") { 
+        heroi_forca_y = -30;
+    }
+}
 function executar(e) { 
     // Executado quando todos os documentos imagens, css, etc forem carregados
     console.log("Todos os documentos imagens, sons, etc, foram carregados");
@@ -72,3 +84,4 @@ function executar(e) {
 }
 document.addEventListener("DOMContentLoaded", inicializa);
 window.addEventListener("load", executar);
+window.addEventListener("keydown", capturarEventos);
