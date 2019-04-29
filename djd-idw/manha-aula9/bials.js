@@ -6,6 +6,7 @@ var imgHeroi;
 var heroi_x = 100, heroi_y = 10;
 var gravidade = 9.8;
 var heroi_vel_y = 0;
+var heroi_vel_x = 0;
 var heroi_forca_y = 0;
 console.log("Javascript bial.js carregado");
 var cenario1 = [   
@@ -53,13 +54,21 @@ function calcularRegras() {
     if (heroi_forca_y > 0) { 
         heroi_forca_y = 0;
     }
+
+    heroi_x = heroi_x + heroi_vel_x;
+    heroi_y = heroi_y + heroi_vel_y;
+
     var col = Math.floor(heroi_x / w);
     var lin = Math.floor((heroi_y + h) / h) + 1;
     console.log("Heroi: " + heroi_x + ", " + heroi_y + " Forca:" + heroi_forca_y);
     heroi_y = heroi_y + heroi_forca_y;
-    if (cenario1[lin][col] == 0) { 
-        heroi_vel_y += gravidade / 100;
-        heroi_y = heroi_y + heroi_vel_y;
+    if (lin >= 0 && lin <= 15 && col >= 0 && col <= 15) { 
+        if (cenario1[lin][col] == 0) { 
+            heroi_vel_y += gravidade / 100;    
+            heroi_vel_y = 0;
+        }
+    } else { 
+        // heroi_vel_y += gravidade / 100;  
     }
 }
 function pintarHeroi() { 
@@ -71,10 +80,25 @@ function loopJogo() {
     pintarHeroi();
 	// capturarEventos();
 }
-function capturarEventos(e) { 
+function capturarEventosTeclaPressionada(e) { 
     console.log(e);
     if (e.code == "Space") { 
         heroi_forca_y = -30;
+    } else if (e.code == "ArrowLeft") { 
+        heroi_vel_x = -5;
+    } else if (e.code == "ArrowRight") { 
+            heroi_vel_x = 5;
+    }
+}
+
+function capturarEventosTeclaSolta(e) { 
+    console.log(e);
+    if (e.code == "Space") { 
+        heroi_forca_y = 0;
+    } else if (e.code == "ArrowLeft") { 
+        heroi_vel_x = 0;
+    } else if (e.code == "ArrowRight") { 
+            heroi_vel_x = 0;
     }
 }
 function executar(e) { 
@@ -84,4 +108,5 @@ function executar(e) {
 }
 document.addEventListener("DOMContentLoaded", inicializa);
 window.addEventListener("load", executar);
-window.addEventListener("keydown", capturarEventos);
+window.addEventListener("keydown", capturarEventosTeclaPressionada);
+window.addEventListener("keyup", capturarEventosTeclaSolta);
