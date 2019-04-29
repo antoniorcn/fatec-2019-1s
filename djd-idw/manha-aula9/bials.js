@@ -54,21 +54,22 @@ function calcularRegras() {
     if (heroi_forca_y > 0) { 
         heroi_forca_y = 0;
     }
-
+    heroi_y = heroi_y + heroi_forca_y + (gravidade);
     heroi_x = heroi_x + heroi_vel_x;
     heroi_y = heroi_y + heroi_vel_y;
 
     var col = Math.floor(heroi_x / w);
     var lin = Math.floor((heroi_y + h) / h) + 1;
     console.log("Heroi: " + heroi_x + ", " + heroi_y + " Forca:" + heroi_forca_y);
-    heroi_y = heroi_y + heroi_forca_y;
+    
     if (lin >= 0 && lin <= 15 && col >= 0 && col <= 15) { 
-        if (cenario1[lin][col] == 0) { 
-            heroi_vel_y += gravidade / 100;    
-            heroi_vel_y = 0;
+        if (cenario1[lin][col] == 1) { 
+            gravidade = 0;
+        } else { 
+            gravidade = 9.8;
         }
     } else { 
-        // heroi_vel_y += gravidade / 100;  
+        gravidade = 9.8;
     }
 }
 function pintarHeroi() { 
