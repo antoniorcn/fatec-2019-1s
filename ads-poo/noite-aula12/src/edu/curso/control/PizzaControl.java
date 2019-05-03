@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.curso.entidade.Pizza;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class PizzaControl {
 	private List<Pizza> lista = new ArrayList<>();
+	private ObservableList<Pizza> dataList = FXCollections.observableArrayList();
 	
-	public void adicionar(Pizza p) { 
+	public void adicionar(Pizza p) {
 		lista.add(p);
 		System.out.println(
 				String.format("Adicionado a pizza %s na lista, tamanho: %d ", 
 						p, lista.size()));
+		dataList.clear();
+		dataList.addAll(lista);
 	}
 	
 	public Pizza pesquisarPorSabor(String sabor) { 
@@ -22,5 +27,13 @@ public class PizzaControl {
 			}
 		}
 		return null;
+	}
+
+	public ObservableList<Pizza> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(ObservableList<Pizza> dataList) {
+		this.dataList = dataList;
 	}
 }

@@ -9,6 +9,9 @@ import java.util.List;
 import edu.curso.control.PizzaControl;
 import edu.curso.entidade.Pizza;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyLongProperty;
+import javafx.beans.property.ReadOnlyLongWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,8 +20,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PizzaBoundary extends Application implements EventHandler<ActionEvent>{
@@ -37,11 +43,17 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private PizzaControl control = new PizzaControl();
 	
-	
+	private TableView tableView = new TableView();	
 	@Override
 	public void start(Stage stage) throws Exception {
+		VBox box = new VBox();
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 300, 300);
+		Scene scene = new Scene(box, 300, 300);
+		box.getChildren().addAll(grid, tableView);
+		tableView.setStyle(STYLESHEET_MODENA);
+		
+		createTableColumns();
+		
 		grid.add(new Label("Id"), 0, 0);
 		grid.add(txtId, 1, 0);
 		grid.add(new Label("Sabor"), 0, 1);
@@ -111,5 +123,19 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 			e.printStackTrace();
 		}
 		return p;
+	}
+	
+	private void createTableColumns() { 
+		tableView.setItems( control.getDataList() );
+		
+		TableColumn<Pizza, Number> idColumn = new TableColumn<>("Id");
+		idColumn.setCellValueFactory( 
+				item -> new ReadOnlyLongWrapper(item.getValue().getId()));
+		
+		TableColumn<Pizza, String> saborColumn = new TableColumn<>("Sabor");
+		saborColumn.setCellValueFactory( 
+				item -> new ReadOnlyStringWrapper(item.getValue().getSabor()));
+		
+		tableView.getColumns().addAll(idColumn, saborColumn);
 	}
 }
