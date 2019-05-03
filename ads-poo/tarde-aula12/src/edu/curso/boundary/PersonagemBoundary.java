@@ -10,7 +10,10 @@ import javafx.application.Application;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -44,7 +48,13 @@ public class PersonagemBoundary extends Application implements EventHandler<Acti
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(principal, 300, 300);
 		principal.getChildren().addAll(grid, table);
-		
+		table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Personagem>() {
+			@Override
+			public void changed(ObservableValue<? extends Personagem> arg0, Personagem arg1, Personagem arg2) {
+				personagemToBoundary(arg2);
+			}
+		});
+				
 		defineTableColumns();
 		
 		Label lblId = new Label("Id");
@@ -128,9 +138,13 @@ public class PersonagemBoundary extends Application implements EventHandler<Acti
 		TableColumn<Personagem, String> habilidadeColumn = new TableColumn<>("Habilidade");
 		habilidadeColumn.setCellValueFactory(
 				 itemData -> new ReadOnlyStringWrapper(itemData.getValue().getHabilidade()));
-		habilidadeColumn.setPrefWidth(100);		
+		habilidadeColumn.setPrefWidth(100);
 		
-		table.getColumns().addAll( idColumn, nomeColumn, habilidadeColumn );
+		TableColumn<Personagem, Double> alturaColumn = new TableColumn<>("Altura");
+		alturaColumn.setCellValueFactory(
+			new PropertyValueFactory<Personagem, Double>("altura") ); 
+		
+		table.getColumns().addAll(idColumn, nomeColumn, habilidadeColumn, alturaColumn);
 		
 		table.setItems(control.getTableData());
 	}

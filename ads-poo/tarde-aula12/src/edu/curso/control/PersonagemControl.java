@@ -13,6 +13,8 @@ public class PersonagemControl {
 	
 	public void adicionar(Personagem p) { 
 		lista.add(p);
+		tableData.clear();
+		tableData.addAll(lista);
 	}
 	
 	public Personagem pesquisarPorNome(String nome) { 
