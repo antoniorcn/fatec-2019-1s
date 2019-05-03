@@ -82,7 +82,6 @@ public class PersonagemBoundary extends Application implements EventHandler<Acti
 			control.adicionar(p);
 		} else if (e.getTarget() == btnPesquisar) {
 			control.pesquisar(txtNome.getText());
-			// personagemToBoundary(p);
 		}
 	}
 
@@ -115,18 +114,23 @@ public class PersonagemBoundary extends Application implements EventHandler<Acti
 		return p;
 	}
 	
-	private void defineTableColumns() { 
+	private void defineTableColumns() {
+		TableColumn<Personagem, Number> idColumn = new TableColumn<>("Id");
+		idColumn.setCellValueFactory(
+				 itemData -> new ReadOnlyLongWrapper(itemData.getValue().getId()));
+		idColumn.setPrefWidth(30);
+		
 		TableColumn<Personagem, String> nomeColumn = new TableColumn<>("Nome");
 		nomeColumn.setCellValueFactory(
 				 itemData -> new ReadOnlyStringWrapper(itemData.getValue().getNome()));
-		nomeColumn.setPrefWidth(400);
+		nomeColumn.setPrefWidth(200);
 		
 		TableColumn<Personagem, String> habilidadeColumn = new TableColumn<>("Habilidade");
 		habilidadeColumn.setCellValueFactory(
 				 itemData -> new ReadOnlyStringWrapper(itemData.getValue().getHabilidade()));
-		habilidadeColumn.setPrefWidth(200);		
+		habilidadeColumn.setPrefWidth(100);		
 		
-		table.getColumns().addAll( nomeColumn, habilidadeColumn );
+		table.getColumns().addAll( idColumn, nomeColumn, habilidadeColumn );
 		
 		table.setItems(control.getTableData());
 	}
