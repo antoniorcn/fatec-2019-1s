@@ -28,6 +28,15 @@ public class PizzaControl {
 		}
 		return null;
 	}
+	
+	public void pesquisar(String sabor) { 
+		dataList.clear();
+		for (Pizza p : lista) { 
+			if (p.getSabor().contains(sabor)) {
+				dataList.add(p);
+			}
+		}
+	}
 
 	public ObservableList<Pizza> getDataList() {
 		return dataList;

@@ -12,6 +12,8 @@ import javafx.application.Application;
 import javafx.beans.property.ReadOnlyLongProperty;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -90,10 +93,7 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 			control.adicionar(p);
 			pizzaToBoundary(new Pizza());
 		} else if (event.getTarget() == btnPesquisar) { 
-			Pizza p = control.pesquisarPorSabor(txtSabor.getText());
-			if (p != null) { 
-				pizzaToBoundary( p );
-			}
+			control.pesquisar(txtSabor.getText());		
 		}
 	}
 
@@ -128,6 +128,14 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	private void createTableColumns() { 
 		tableView.setItems( control.getDataList() );
 		
+		tableView.getSelectionModel().selectedItemProperty().addListener(
+				new ChangeListener<Pizza>() {
+			@Override
+			public void changed(ObservableValue<? extends Pizza> p, Pizza p1, Pizza p2) {
+				pizzaToBoundary(p2);
+			} 
+		});
+		
 		TableColumn<Pizza, Number> idColumn = new TableColumn<>("Id");
 		idColumn.setCellValueFactory( 
 				item -> new ReadOnlyLongWrapper(item.getValue().getId()));
@@ -136,6 +144,15 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 		saborColumn.setCellValueFactory( 
 				item -> new ReadOnlyStringWrapper(item.getValue().getSabor()));
 		
-		tableView.getColumns().addAll(idColumn, saborColumn);
+		TableColumn<Pizza, Double> precoColumn = new TableColumn<>("Preço");
+		precoColumn.setCellValueFactory(
+				new PropertyValueFactory<Pizza, Double>("preco"));
+		
+		TableColumn<Pizza, String> fabricColumn = new TableColumn<>("Fabricação");
+		fabricColumn.setCellValueFactory( 
+				item -> new ReadOnlyStringWrapper(sdf.format(item.getValue().getFabricacao())));		
+		
+		
+		tableView.getColumns().addAll(idColumn, saborColumn, precoColumn, fabricColumn);
 	}
 }
