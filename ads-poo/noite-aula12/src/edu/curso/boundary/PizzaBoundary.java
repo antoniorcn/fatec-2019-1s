@@ -127,7 +127,6 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	
 	private void createTableColumns() { 
 		tableView.setItems( control.getDataList() );
-		
 		tableView.getSelectionModel().selectedItemProperty().addListener(
 				new ChangeListener<Pizza>() {
 			@Override
@@ -135,7 +134,6 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 				pizzaToBoundary(p2);
 			} 
 		});
-		
 		TableColumn<Pizza, Number> idColumn = new TableColumn<>("Id");
 		idColumn.setCellValueFactory( 
 				item -> new ReadOnlyLongWrapper(item.getValue().getId()));
