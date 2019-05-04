@@ -46,7 +46,7 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private PizzaControl control = new PizzaControl();
 	
-	private TableView tableView = new TableView();	
+	private TableView<Pizza> tableView = new TableView<>();	
 	@Override
 	public void start(Stage stage) throws Exception {
 		VBox box = new VBox();
