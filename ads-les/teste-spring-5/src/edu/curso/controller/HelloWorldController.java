@@ -15,6 +15,6 @@ public class HelloWorldController {
 	@RequestMapping("/bemvindo")
 	public ModelAndView ola() { 
 		String message = "<h1>Mensagem em portugues</h1>";
-		return new ModelAndView("welcome", "message", message);
+		return new ModelAndView("helloworld", "message", message);
 	}
 }

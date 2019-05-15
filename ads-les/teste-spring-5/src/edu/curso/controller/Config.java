@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -38,12 +36,10 @@ public class Config implements WebMvcConfigurer {
 		return templateEngine;
 	}	
 
-	@Bean
-	public ThymeleafViewResolver viewResolve () {
-		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine(templateEngine());
-		resolver.setOrder(1);
-		resolver.setViewNames(new String[] {".html", ".xhtml"});
-		return resolver;
-	}		
+	 @Override
+	   public void configureViewResolvers(ViewResolverRegistry registry) {
+	      ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+	      resolver.setTemplateEngine(templateEngine());
+	      registry.viewResolver(resolver);
+	   }
 }  
