@@ -1,5 +1,6 @@
 package edu.curso;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,9 @@ import edu.curso.entidade.Pessoa;
 
 @Controller
 public class AgendaController {
+	@Autowired
+	private AgendaService agendaService;
+	
 	@RequestMapping("/agenda")
 	public ModelAndView agenda() { 
 		Pessoa pessoa = new Pessoa();
@@ -19,12 +23,12 @@ public class AgendaController {
 	@RequestMapping("/agendaCommand")
 	public ModelAndView agendaCommand(@RequestParam String cmd,  @ModelAttribute("pessoa") Pessoa pessoa) {
 		System.out.println("Pessoa recebida como atributo: " + pessoa);
-		if (pessoa == null) { 
-			pessoa = new Pessoa();
-		}
-		if ("adicionar".equals(cmd)) { 
-			System.out.println(
+		if ("adicionar".equals(cmd)) {
+			if (pessoa != null) {
+				System.out.println(
 					String.format("Pessoa: %s adicionada ao database", pessoa.getNome()));
+				agendaService.salvar(pessoa);
+			}
 		} else if ("pesquisar".equals(cmd)) {
 			System.out.println(
 					String.format("Procurando pessoa: %s no banco de dados", pessoa.getNome()));

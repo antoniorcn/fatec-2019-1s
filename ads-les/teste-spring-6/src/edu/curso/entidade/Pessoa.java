@@ -1,11 +1,18 @@
 package edu.curso.entidade;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Pessoa {
 	private long id;
 	private String nome;
 	private String telefone;
 	private String email;
-	
+
+	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}
