@@ -1,9 +1,12 @@
 package edu.curso.control;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +27,9 @@ public class PersonagemControl {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		url = "jdbc:mariadb://localhost:3306/cartoon";
+		url = "jdbc:mariadb://localhost:3306/cartoon?allowMultiQueries=true";
 		user = "root";
-		password = "alunofatec";
+		password = "";
 	}
 	
 	public void adicionar(Personagem p) { 
@@ -38,19 +41,21 @@ public class PersonagemControl {
 			Connection con = 
 					DriverManager.getConnection(url, user, password);
 			System.out.println("Conectado no servidor");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String sql = "INSERT INTO personagem"
 					+ " (id, nome, altura, forca, "
-					+ "habilidade, do_mal, nascimento) VALUES ("
-					+ p.getId() + ", '" 
-					+ p.getNome() + "', "
-					+ p.getAltura() + ", "
-					+ p.getForca() + ", '"
-					+ p.getHabilidade() + "', "
-					+ p.isDoMal() + ", '" 
-					+ p.getNascimento() + "')";
+					+ "habilidade, do_mal, nascimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			System.out.println("Query de inserção: " + sql);
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setLong(1, p.getId());
+			stmt.setString(2, p.getNome());
+			stmt.setFloat(3, p.getAltura());
+			stmt.setFloat(4,  p.getForca());
+			stmt.setString(5, p.getHabilidade());
+			stmt.setBoolean(6,  p.isDoMal());
+			java.sql.Date d = new java.sql.Date(p.getNascimento().getTime());
+			stmt.setDate(7, d);
+			stmt.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
