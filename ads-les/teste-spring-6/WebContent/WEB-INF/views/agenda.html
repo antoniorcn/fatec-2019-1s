@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Agenda</title>
+</head>
+<body>
+   <h1>Exemplo de Agenda usando Thymeleaf</h1>
+   <form action="#" th:action="@{/agendaCommand}" th:object="${pessoa}" method="post">
+   	<table>
+   		<tr>
+   			<td>Nome completo: </td>
+   			<td><input type="text" th:field="*{nome}"/>
+   		</tr>
+   		<tr>
+   			<td>Telefone: </td>
+   			<td><input type="text" th:field="*{telefone}"/>
+   		</tr>
+   		<tr>
+   			<td>Email: </td>
+   			<td><input type="text" th:field="*{email}"/>
+   		</tr>
+   		<tr>
+   			<td><button type="submit" name="cmd" value="adicionar">Adicionar</button></td>
+   			<td><button type="submit" name="cmd" value="pesquisar">Pesquisar</button></td>
+   		</tr>   		
+   	</table>
+   </form>
+</body>
+</html>
