@@ -13,8 +13,20 @@ class Cachorro():
             print("Cachorro esta dormindo e não pode executar mais atividades")
     def comer(self):
         self.hp = self.hp + 3
+        if self.hp > 0:
+            self.acordado = True
+
+
+
 if __name__ == "__main__":
     print("Teste de objetos")
     c1 = Cachorro()
     c2 = Cachorro()
     c3 = c1
+    c1.idade = 5
+    for _ in range(52):
+        c1.latir()
+    c1.comer()
+    c1.comer()
+    c2.latir()
+    c3.latir()
