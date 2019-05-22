@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Sistema de Agenda</title>
 </head>
 <body>
 	<h1>Nosso sistema de agenda</h1>
+	<form 	action="#"
+			th:action=@{/agendaProcess}
+			method="post"
+			th:object="${contato}">
+		<table>
+			<tr>
+				<td>Id</td>
+				<td><label th:value="*{id}"></label></td>
+			</tr>
+			<tr>
+				<td>Nome</td>
+				<td><input th:field="*{nome}"/></td>
+			</tr>			
+			<tr>
+				<td>Telefone</td>
+				<td><input th:field="*{telefone}"/></td>
+			</tr>		
+			<tr>
+				<td>Email</td>
+				<td><input th:field="*{email}"/></td>
+			</tr>	
+			<tr>
+				<td><button value="adicionar" name="cmd">Adicionar</button></td>
+			</tr>				
+		</table>
+	</form> 
 </body>
 </html>
