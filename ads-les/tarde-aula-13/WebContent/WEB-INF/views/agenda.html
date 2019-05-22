@@ -7,7 +7,7 @@
 <body>
 	<h1>Nosso sistema de agenda</h1>
 	<form 	action="#"
-			th:action=@{/agendaProcess}
+			th:action=@{/agendaProcessa}
 			method="post"
 			th:object="${contato}">
 		<table>
@@ -29,6 +29,7 @@
 			</tr>	
 			<tr>
 				<td><button value="adicionar" name="cmd">Adicionar</button></td>
+				<td><button value="pesquisar" name="cmd">Pesquisar</button></td>
 			</tr>				
 		</table>
 	</form> 
