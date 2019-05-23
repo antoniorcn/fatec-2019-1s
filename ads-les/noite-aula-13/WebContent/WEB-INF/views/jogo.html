@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Gestão de Jogos</title>
+</head>
+<body>
+	<h1>Registro de jogo</h1>
+	
+	<form action="#" 	th:object="${jogo}" 
+						th:action="@{/jogoController}"
+						method="post">
+		<table>
+			<tr>
+				<td>Id</td>
+				<td><label th:value="*{id}"></label></td>
+			</tr>
+			<tr>
+				<td>Nome</td>
+				<td><input th:field="*{nome}"></input></td>
+			</tr>			
+			<tr>
+				<td>Tipo</td>
+				<td><input th:field="*{tipo}"></input></td>
+			</tr>		
+			<tr>
+				<td><button type="submit" name="cmd" value="salvar">Salvar</button></td>
+				<td><button type="submit" name="cmd" value="pesquisar">Pesquisar</button></td>
+			</tr>					
+		</table>
+	</form>
+</body>
+</html>
