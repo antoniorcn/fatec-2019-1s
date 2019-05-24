@@ -1,6 +1,5 @@
 package edu.curso.dao;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,27 +9,13 @@ import java.util.List;
 import edu.curso.entidade.Personagem;
 
 public class PersonagemDAOImpl implements PersonagemDAO{
-	
-	private String url;
-	private String user;
-	private String password;
-
 	public PersonagemDAOImpl() { 
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		url = "jdbc:mariadb://localhost:3306/cartoon?allowMultiQueries=true";
-		user = "root";
-		password = "";
 	}
 	
 	@Override
-	public void adicionar(Personagem p) {
+	public void adicionar(Personagem p) throws DAOException {
 		try {
-			Connection con = 
-					DriverManager.getConnection(url, user, password);
+			Connection con = ConnectionManager.getInstance().getConnection();
 			System.out.println("Conectado no servidor");
 			String sql = "INSERT INTO personagem"
 					+ " (id, nome, altura, forca, "
@@ -49,15 +34,15 @@ public class PersonagemDAOImpl implements PersonagemDAO{
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DAOException(e);
 		}
 	}
 
 	@Override
-	public List<Personagem> pesquisar(String nome) {
+	public List<Personagem> pesquisar(String nome) throws DAOException {
 		List<Personagem> lista = new ArrayList<>();
 		try {
-			Connection con = 
-					DriverManager.getConnection(url, user, password);
+			Connection con = ConnectionManager.getInstance().getConnection();
 			String sql = "SELECT * FROM personagem WHERE nome like ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%" + nome + "%");
@@ -76,6 +61,7 @@ public class PersonagemDAOImpl implements PersonagemDAO{
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DAOException(e);
 		}
 		return lista;
 	}

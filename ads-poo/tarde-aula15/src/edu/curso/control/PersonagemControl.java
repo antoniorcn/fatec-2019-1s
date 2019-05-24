@@ -1,4 +1,5 @@
 package edu.curso.control;
+import edu.curso.dao.DAOException;
 import edu.curso.dao.PersonagemDAO;
 import edu.curso.dao.PersonagemDAOImpl;
 import edu.curso.entidade.Personagem;
@@ -14,14 +15,22 @@ public class PersonagemControl {
 	}
 	
 	public void adicionar(Personagem p) { 
-		personaDAO.adicionar(p);
-		tableData.clear();
-		tableData.addAll(personaDAO.pesquisar(""));
+		try {
+			personaDAO.adicionar(p);
+			tableData.clear();
+			tableData.addAll(personaDAO.pesquisar(""));
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void pesquisar(String nome) { 
-		tableData.clear();
-		tableData.addAll(personaDAO.pesquisar(nome));
+		try {
+			tableData.clear();
+			tableData.addAll(personaDAO.pesquisar(nome));
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ObservableList<Personagem> getTableData() {
