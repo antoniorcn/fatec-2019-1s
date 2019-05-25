@@ -21,6 +21,7 @@ class Personagem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (100, 100)
         self.velocidade = (0, 0)
+        self.angulo = 0
 
     def get_frame_by_lin_col(self, lin, col):
         w = 64
@@ -35,12 +36,17 @@ class Personagem(pygame.sprite.Sprite):
         return self.get_frame_by_lin_col(lin, col)
 
     def draw(self, surface):
-        surface.blit(self.image, self.rect.topleft)
+        novo_x = self.rect.x - self.rect.w / 2
+        novo_y = self.rect.y - self.rect.h / 2
+        surface.blit(self.image, (novo_x, novo_y))
         self.indice = self.indice + 1
         if self.indice >= len(self.animacao):
             self.indice = 0
         frame = self.animacao[self.indice]
-        self.image = self.get_frame(frame)
+        self.image = pygame.transform.rotate(self.get_frame(frame), self.angulo)
+        self.rect.size = self.image.get_rect().size
+        self.angulo += 0
+
 
     def update(self, *args):
         super().update(*args)
