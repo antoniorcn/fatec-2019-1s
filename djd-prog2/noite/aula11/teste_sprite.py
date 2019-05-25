@@ -48,20 +48,37 @@ class Personagem(pygame.sprite.Sprite):
         self.rect.topleft = nova_pos
 
 
+inimigos = pygame.sprite.Group()
 p1 = Personagem()
 
+p2 = Personagem()
+p2.rect.topleft = (500, 100)
+
+p3 = Personagem()
+p3.rect.topleft = (500, 200)
+
+inimigos.add(p2, p3)
+
 clk = pygame.time.Clock()
+
+speed = 3
 
 while True:
     # Atualizar regras
     p1.update()
+    spr = pygame.sprite.spritecollideany(p1, inimigos, False)
+    if spr is not None:
+        ponto_colisao = pygame.sprite.collide_mask(p1, spr)
+        if ponto_colisao is not None:
+            spr.kill()
 
     # Desenhar tela
     screen.fill((0, 0, 0))
     p1.draw(screen)
+    inimigos.draw(screen)
     pygame.display.update()
 
-    clk.tick(10)
+    clk.tick(30)
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
@@ -69,10 +86,10 @@ while True:
         elif e.type == pygame.KEYDOWN:
             if e.key == pygame.K_LEFT:
                 p1.animacao = p1.animacao_esquerda
-                p1.velocidade = (-1, 0)
+                p1.velocidade = (-speed, 0)
             if e.key == pygame.K_RIGHT:
                 p1.animacao = p1.animacao_direita
-                p1.velocidade = (1, 0)
+                p1.velocidade = (speed, 0)
         elif e.type == pygame.KEYUP:
             if e.key == pygame.K_LEFT:
                 p1.animacao = p1.animacao_esquerda_parado
