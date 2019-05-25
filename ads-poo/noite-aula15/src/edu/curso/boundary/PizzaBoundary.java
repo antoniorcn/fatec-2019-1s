@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.curso.control.ControlException;
 import edu.curso.control.PizzaControl;
 import edu.curso.entidade.Pizza;
 import javafx.application.Application;
@@ -16,6 +17,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -35,7 +38,7 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	private TextField txtSabor = new TextField();
 	private TextField txtPreco = new TextField();
 	private TextField txtIngredientes = new TextField();
-	private ComboBox<String> cmbTamanho = new ComboBox(tamanhos);
+	private ComboBox<String> cmbTamanho = new ComboBox<>(tamanhos);
 	private TextField txtFabricacao = new TextField();
 	private Button btnSalvar = new Button("Salvar");
 	private Button btnPesquisar = new Button("Pesquisar");
@@ -87,11 +90,30 @@ public class PizzaBoundary extends Application implements EventHandler<ActionEve
 	public void handle(ActionEvent event) {
 		if (event.getTarget() == btnSalvar) { 
 			Pizza p = boundaryToPizza();
-			control.adicionar(p);
+			try {
+				control.adicionar(p);
+			} catch (ControlException e) {
+				e.printStackTrace();
+				dialog(AlertType.ERROR, "Erro ao inserir a pizza no sistema");
+			}
 			pizzaToBoundary(new Pizza());
 		} else if (event.getTarget() == btnPesquisar) { 
-			control.pesquisar(txtSabor.getText());		
+			try {
+				control.pesquisar(txtSabor.getText());
+			} catch (ControlException e) {
+				e.printStackTrace();
+				dialog(AlertType.ERROR, "Erro ao pesquisar no sistema");
+			}		
 		}
+	}
+	
+	public void dialog(AlertType tipo, String texto) { 
+		Alert alert = new Alert(tipo);
+		alert.setTitle("Erro");
+		alert.setHeaderText(texto);
+		alert.setContentText("Consulte o administrador do sistema");
+		alert.showAndWait();
+
 	}
 
 	private void pizzaToBoundary(Pizza p) {

@@ -1,7 +1,6 @@
 package edu.curso.dao;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,28 +9,13 @@ import java.util.List;
 
 import edu.curso.entidade.Pizza;
 public class PizzaDAOImpl implements PizzaDAO{
-	
-	private String connectionURL;
-	private String user;
-	private String pass;
-
 	public PizzaDAOImpl() {
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			System.out.println("Driver Carregado");
-			connectionURL = "jdbc:mariadb://localhost:3306/pizzaria?allowMultiQueries=true";
-			user = "root";
-			pass = "";
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Override
-	public void inserir(Pizza p) {
+	public void inserir(Pizza p) throws DAOException {
 		try {
-			Connection con = 
-					DriverManager.getConnection(connectionURL, user, pass);
+			Connection con = ConnectionManager.getInstance().getConnection();
 			String sql = "INSERT INTO pizza "
 					+ "(id, sabor, tamanho, ingredientes, preco, fabricacao) "
 					+ " VALUES (?, ?, ?, ?, ?, ?)";
@@ -49,15 +33,15 @@ public class PizzaDAOImpl implements PizzaDAO{
 		} catch (SQLException e) {
 			System.out.println("Erro de conexão no banco de dados");
 			e.printStackTrace();
+			throw new DAOException(e);
 		}
 	}
 
 	@Override
-	public List<Pizza> pesquisarPorSabor(String sabor) {
+	public List<Pizza> pesquisarPorSabor(String sabor) throws DAOException {
 		List<Pizza> lista = new ArrayList<>();
 		try {
-			Connection con = DriverManager.getConnection(connectionURL, user, pass);
-
+			Connection con = ConnectionManager.getInstance().getConnection();
 			String sql = "SELECT * from pizza where sabor like ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%" + sabor + "%");
@@ -75,6 +59,7 @@ public class PizzaDAOImpl implements PizzaDAO{
 		} catch (SQLException e) {
 			System.out.println("Erro de conexão no banco de dados");
 			e.printStackTrace();
+			throw new DAOException(e);
 		}
 		return lista;
 	}

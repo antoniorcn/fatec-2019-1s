@@ -1,4 +1,5 @@
 package edu.curso.control;
+import edu.curso.dao.DAOException;
 import edu.curso.dao.PizzaDAO;
 import edu.curso.dao.PizzaDAOImpl;
 import edu.curso.entidade.Pizza;
@@ -12,15 +13,25 @@ public class PizzaControl {
 	public PizzaControl() { 
 	}
 
-	public void adicionar(Pizza p) {
-		pizzaDAO.inserir(p);
-		dataList.clear();
-		dataList.addAll(pizzaDAO.pesquisarPorSabor(""));
+	public void adicionar(Pizza p) throws ControlException {
+		try {
+			pizzaDAO.inserir(p);
+			dataList.clear();
+			dataList.addAll(pizzaDAO.pesquisarPorSabor(""));
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ControlException(e);
+		}
 	}
 
-	public void pesquisar(String sabor) { 
-		dataList.clear();
-		dataList.addAll(pizzaDAO.pesquisarPorSabor(sabor));
+	public void pesquisar(String sabor) throws ControlException { 
+		try {
+			dataList.clear();
+			dataList.addAll(pizzaDAO.pesquisarPorSabor(sabor));
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ControlException(e);
+		}
 	}
 
 	public ObservableList<Pizza> getDataList() {
