@@ -64,6 +64,8 @@ class Personagem(pygame.sprite.Sprite):
 
 
 heroi = Personagem()
+heroi2 = Personagem()
+heroi2.rect.topleft = (200.0, 100.0)
 
 
 def menu_draw(tela):
@@ -79,10 +81,12 @@ def menu_draw(tela):
 
 def jogando_draw(tela):
     heroi.draw(tela)
+    heroi2.draw(tela)
 
 def pausado_draw(tela):
     global fade
     heroi.draw(tela)
+    heroi2.draw(tela)
     tela.blit(fade, (0, 0))
     tela.blit(img_pausado, r_pausado.topleft)
 
@@ -95,6 +99,7 @@ def pausado_calcular():
 
 def jogando_calcular():
     heroi.update()
+    heroi2.update()
 
 
 def menu_evento(e):
@@ -120,6 +125,7 @@ def jogando_evento(e):
             estado = "pausado"
         else:
             heroi.processa_evento(e)
+            heroi2.processa_evento(e)
 
 def pausado_evento(e):
     global estado
