@@ -10,7 +10,7 @@ class Personagem(pygame.sprite.Sprite):
         self.rect.topleft = (100.0, 100.0)
         # self.rect = Rect((100.0, 100.0), (50.0, 50.0))
         self.velocidade = [0.0, 0.0]
-        self.speed = 5
+        self.speed = 1
 
     def draw(self, tela):
         # pygame.draw.rect(tela, (255, 255, 0), self.rect, 0)
