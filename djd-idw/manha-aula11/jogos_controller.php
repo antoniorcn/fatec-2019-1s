@@ -13,4 +13,9 @@
 		"$id, '$nome', '$genero', $jogou, $rec, '$imagem')";
 	$db->exec($sql);
 	echo "Comando executado com sucesso <BR>";
+	header('Location: ./jogos.php');
+	$msg = "Jogo cadastrado com sucesso";
+	
+	session_start();
+	$_SESSION['MENSAGEM'] = $msg;
 ?>

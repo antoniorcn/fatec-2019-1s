@@ -1,6 +1,19 @@
 <html>
 	<body>
 		<h1>Cadastro de Jogos</h1>
+		
+		<?php
+			session_start();
+			if (isset($_SESSION['MENSAGEM'])) { 
+		?>
+				<h2 style="color:red;">
+					<?=$_SESSION['MENSAGEM']?>
+				</h2>
+		<?php
+				unset($_SESSION['MENSAGEM']);
+			}
+		?>
+		
 		<form action="./jogos_controller.php">
 			<table>
 				<tr>
