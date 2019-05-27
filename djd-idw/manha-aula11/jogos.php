@@ -1,7 +1,7 @@
 <html>
 	<body>
 		<h1>Cadastro de Jogos</h1>
-		<form>
+		<form action="./jogos_controller.php">
 			<table>
 				<tr>
 					<td>Nome</td>
