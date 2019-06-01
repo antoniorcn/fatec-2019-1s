@@ -13,8 +13,10 @@ class Quadrado(pygame.sprite.Sprite):
         self.rect = pygame.Rect(pos, (50, 50))
 
     def update(self, *args):
-        self.rect.x = self.rect.x + self.vel_x
-        self.rect.y = self.rect.y + self.vel_y
+        if 800 - self.rect.w > self.rect.x + self.vel_x > 0:
+            self.rect.x = self.rect.x + self.vel_x
+        if 600 - self.rect.h > self.rect.y + self.vel_y > 0:
+            self.rect.y = self.rect.y + self.vel_y
 
 
 q1 = Quadrado((255, 255, 0), (0, 0))
