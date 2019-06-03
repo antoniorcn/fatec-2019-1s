@@ -28,27 +28,36 @@ def parallax(surf, initial_pos, img, pos_x):
     surf.blit(temp_img1, (img.get_width() - pos_x, initial_pos[1]))
     surf.blit(temp_img2, initial_pos)
 
+andando_esquerda = [10, 11, 12, 13, 14, 15, 16, 17]
+andando_direita = [28, 29, 30, 31, 32, 33, 34, 35]
+parado_esquerda = [9]
+parado_direita = [27]
+parado = [9, 0, 27, 18]
+animacao = parado
+
 pos_corte = 0
 pos_corte_gnd = 0
 vel_corte = 0
 vel_corte_gnd = 0
-gid_inicio = 18
-gid_fim = 18
-gid = gid_inicio
+gid_indice = 0
+clk = pygame.time.Clock()
 while True:
     # Calcular Regras
     pos_corte = pos_corte + vel_corte
     pos_corte_gnd = pos_corte_gnd + vel_corte_gnd
-    gid = gid + 1
-    if gid > gid_fim:
-        gid = gid_inicio
+    gid_indice = gid_indice + 1
+    if gid_indice >= len(animacao):
+        gid_indice = 0
 
     # Pintar a tela
     parallax(screen, (0, 0), image_space, pos_corte)
     parallax(screen, (0, 400), image_ground, pos_corte_gnd)
+    gid = animacao[gid_indice]
     img = get_frame(gid)
     screen.blit(img, (400, 540))
     pygame.display.update()
+
+    clk.tick(10)
 
     # Capturar eventos
     for e in pygame.event.get():
@@ -58,11 +67,17 @@ while True:
             if e.key == pygame.K_LEFT:
                 vel_corte = -1
                 vel_corte_gnd = -5
-                gid_inicio = 10
-                gid_fim = 17
-
+                animacao = andando_esquerda
             elif e.key == pygame.K_RIGHT:
                 vel_corte = 1
                 vel_corte_gnd = 5
-                gid_inicio = 28
-                gid_fim = 35
+                animacao = andando_direita
+        elif e.type == pygame.KEYUP:
+            if e.key == pygame.K_LEFT:
+                vel_corte = 0
+                vel_corte_gnd = 0
+                animacao = parado_esquerda
+            elif e.key == pygame.K_RIGHT:
+                vel_corte = 0
+                vel_corte_gnd = 0
+                animacao = parado_direita
