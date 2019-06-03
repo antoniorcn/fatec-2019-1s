@@ -27,11 +27,13 @@ class Quadro(pygame.sprite.Sprite):
         self.teclas = teclas
         self.vel_x = 0
         self.vel_y = 0
+        self.hp = 100
         self.tiros = pygame.sprite.Group()
 
     def update(self):
         self.rect.x = self.rect.x + self.vel_x
         self.rect.y = self.rect.y + self.vel_y
+        self.image.set_alpha((self.hp * 255) // 100)
         self.tiros.update()
 
     def testar_eventos(self, e):
@@ -47,6 +49,15 @@ class Quadro(pygame.sprite.Sprite):
             elif e.key == self.teclas[4]:
                 t = Tiro(self.rect.midright)
                 self.tiros.add(t)
+        if e.type == pygame.KEYUP:
+            if e.key == self.teclas[0]:
+                self.vel_x = 0
+            elif e.key == self.teclas[1]:
+                self.vel_x = 0
+            elif e.key == self.teclas[2]:
+                self.vel_y = 0
+            elif e.key == self.teclas[3]:
+                self.vel_y = 0
 
 
 q1 = Quadro((10, 10), (255, 0, 0), [pygame.K_RIGHT, pygame.K_LEFT,
@@ -62,6 +73,12 @@ grp.add([q1, q2])
 while True:
     # Calcular Regras
     grp.update()
+    lista = pygame.sprite.spritecollide(q2, q1.tiros, dokill=True)
+    if len(lista) > 0:
+        q2.hp = q2.hp - 3
+    lista = pygame.sprite.spritecollide(q1, q2.tiros, dokill=True)
+    if len(lista) > 0:
+        q1.hp = q1.hp - 3
 
     # Pinta na tela
     screen.fill((0, 0, 0))
