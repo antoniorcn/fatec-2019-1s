@@ -4,11 +4,12 @@ screen = pygame.display.set_mode((800, 600), 0, 32)
 
 
 class Quadro(pygame.sprite.Sprite):
-    def __init__(self, pos, cor):
+    def __init__(self, pos, cor, teclas):
         super().__init__()
         self.rect = pygame.Rect(pos, (50, 50))
         self.image = pygame.Surface((50, 50))
         self.image.fill(cor)
+        self.teclas = teclas
         self.vel_x = 0
         self.vel_y = 0
 
@@ -23,23 +24,25 @@ class Quadro(pygame.sprite.Sprite):
 
     def testar_eventos(self, e):
         if e.type == pygame.KEYDOWN:
-            if e.key == pygame.K_RIGHT:
+            if e.key == self.teclas[0]:
                 self.vel_x = 1
-            elif e.key == pygame.K_LEFT:
+            elif e.key == self.teclas[1]:
                 self.vel_x = -1
-            elif e.key == pygame.K_UP:
+            elif e.key == self.teclas[2]:
                 self.vel_y = -1
-            elif e.key == pygame.K_DOWN:
+            elif e.key == self.teclas[3]:
                 self.vel_y = 1
 
 
-q1 = Quadro((10, 10), (255, 0, 0))
-q2 = Quadro((200, 50), (0, 0, 255))
-q3 = Quadro((400, 100), (255, 255, 0))
+q1 = Quadro((10, 10), (255, 0, 0), [pygame.K_RIGHT, pygame.K_LEFT,
+                                    pygame.K_UP, pygame.K_DOWN])
+q2 = Quadro((200, 50), (0, 0, 255), [pygame.K_d, pygame.K_a,
+                                    pygame.K_w, pygame.K_s])
+# q3 = Quadro((400, 100), (255, 255, 0))
 
 grp = pygame.sprite.Group()
 
-grp.add([q1, q2, q3])
+grp.add([q1, q2])
 
 while True:
     # Calcular Regras
